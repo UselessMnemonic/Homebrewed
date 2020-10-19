@@ -25,7 +25,7 @@ JRESULT ReadFields(FILE *file, FIELD *fields, u2 num_items, CONSTANT **constant_
 		if (curr_field->attributes_count > 0)
 		{
 			curr_field->attributes = calloc(curr_field->attributes_count, sizeof(ATTRIBUTE *));
-			ReadAttributes(file, curr_field->attributes, curr_field->attributes_count, constant_pool);
+			ReadAttributes(file, curr_field->attributes_count, curr_field->attributes, constant_pool);
 		}
 		else
 		{
@@ -44,7 +44,7 @@ void FreeFields(FIELD *fields, u2 fields_count, CONSTANT **constant_pool)
 {
 	for (int i = 0; i < fields_count; i++)
 	{
-		FreeAttributes(fields[i].attributes, fields[i].attributes_count, constant_pool);
+		FreeAttributes(fields[i].attributes_count, fields[i].attributes, constant_pool);
 	}
 	free(fields);
 }

@@ -105,7 +105,7 @@ JRESULT ReadConstantPool(FILE *file, CONSTANT **constant_pool, u2 num_items)
 				break;
 
 			default:
-				return JRESULT_UNKNWON_CONSTANT;
+				return JRESULT_UNKNOWN_CONSTANT;
 				break;
 		}
 	}

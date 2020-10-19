@@ -10,7 +10,6 @@ void printAttributes(ATTRIBUTE **attributes, u2 num_items, const char *indentati
 	{
 		ATTRIBUTE *curr_attribute = attributes[i];
 		printf("%s#%d)\tName @ #%d\n", indentation, i+1, curr_attribute->attribute_name_index);
-		printf("%s\tLength in Bytes: %lu\n", indentation, curr_attribute->attribute_length);
 	}
 }
 

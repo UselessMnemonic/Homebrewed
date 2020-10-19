@@ -79,7 +79,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	if (num_items > 0)
 	{
 		clazz->attributes = calloc(num_items, sizeof(ATTRIBUTE *));
-		r = ReadAttributes(file, clazz->attributes, num_items, clazz->constant_pool);
+		r = ReadAttributes(file, num_items, clazz->attributes, clazz->constant_pool);
 	}
 	else
 	{
@@ -102,7 +102,7 @@ void FreeClassfileReference(CLASSFILE *clazz)
 	if (clazz->methods) FreeMethods(clazz->methods, clazz->methods_count, clazz->constant_pool);
 	clazz->methods = NULL;
 
-	if (clazz->attributes) FreeAttributes(clazz->attributes, clazz->attributes_count, clazz->constant_pool);
+	if (clazz->attributes) FreeAttributes(clazz->attributes_count, clazz->attributes, clazz->constant_pool);
 	clazz->attributes = NULL;
 
 	if (clazz->constant_pool) FreeConstantPool(clazz->constant_pool);
