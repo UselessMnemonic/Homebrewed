@@ -11,8 +11,8 @@ typedef struct {
 	u2 attribute_name_index;
 } ATTRIBUTE_Deprecated;
 
-JRESULT ReadDeprecatedAttribute(FILE *file, ATTRIBUTE_Deprecated *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_Deprecated(FILE *file, ATTRIBUTE_Deprecated *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeDeprecatedAttribute(ATTRIBUTE_Deprecated *attribute, CONSTANT **constant_pool);
+void FreeAttribute_Deprecated(ATTRIBUTE_Deprecated *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_DEPRECATED_H_ */

@@ -16,8 +16,8 @@ typedef struct {
 	u2 sourcefile_index;
 } ATTRIBUTE_SourceFile;
 
-JRESULT ReadSourceFileAttribute(FILE *file, ATTRIBUTE_SourceFile *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_SourceFile(FILE *file, ATTRIBUTE_SourceFile *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeSourceFileAttribute(ATTRIBUTE_SourceFile *attribute, CONSTANT **constant_pool);
+void FreeAttribute_SourceFile(ATTRIBUTE_SourceFile *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_SOURCEFILE_H_ */

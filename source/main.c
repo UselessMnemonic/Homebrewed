@@ -16,6 +16,7 @@ void printAttributes(ATTRIBUTE **attributes, u2 num_items, const char *indentati
 int main(int argc, char** argv)
 {
 	freopen("stdout.txt", "w", stdout);
+	freopen("stderr.txt", "w", stderr);
 	gfxInitDefault();
 	consoleInit(GFX_TOP, NULL);
 
@@ -26,13 +27,13 @@ int main(int argc, char** argv)
 
 	if (file == NULL)
 	{
-		printf("No such file \"Main.class\"");
+		fprintf(stderr, "No such file \"Main.class\"");
 	}
 
 	r = ReadClassfile(file, &clazz);
 	if (r != JRESULT_OK)
 	{
-		printf("Unexpected error: %d", r);
+		fprintf(stderr, "Unexpected error: %d", r);
 	}
 	else
 	{

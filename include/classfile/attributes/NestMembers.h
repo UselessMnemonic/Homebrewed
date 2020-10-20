@@ -20,8 +20,8 @@ typedef struct {
 	u2 *classes;
 } ATTRIBUTE_NestMembers;
 
-JRESULT ReadNestMembersAttribute(FILE *file, ATTRIBUTE_NestMembers *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_NestMembers(FILE *file, ATTRIBUTE_NestMembers *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeNestMembersAttribute(ATTRIBUTE_NestMembers *attribute, CONSTANT **constant_pool);
+void FreeAttribute_NestMembers(ATTRIBUTE_NestMembers *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_NESTMEMBERS_H_ */

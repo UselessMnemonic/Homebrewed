@@ -49,8 +49,8 @@ typedef struct {
 	struct LocalVariableEntry *local_variable_table;
 } ATTRIBUTE_LocalVariableTable;
 
-JRESULT ReadLocalVariableTableAttribute(FILE *file, ATTRIBUTE_LocalVariableTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_LocalVariableTable(FILE *file, ATTRIBUTE_LocalVariableTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeLocalVariableTableAttribute(ATTRIBUTE_LocalVariableTable *attribute, CONSTANT **constant_pool);
+void FreeAttribute_LocalVariableTable(ATTRIBUTE_LocalVariableTable *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_LOCALVARIABLETABLE_H_ */

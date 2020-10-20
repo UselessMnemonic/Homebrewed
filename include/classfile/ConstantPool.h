@@ -156,12 +156,17 @@ typedef struct {
 JRESULT ReadConstantPool(FILE *file, u2 constant_pool_count, CONSTANT **constant_pool);
 
 /*
- * This releases all memory allocated by ReadConstantPool.
+ * This releases all memory allocated by ReadConstantPool, and
+ * sets the vector's elements to NULL.
  * Note that the vector itself is not deallocated.
  *
+ * constant_pool_count
+ *   The number of elements in the vector.
+ *
  * constant_pool
- *   The vector populated by ReadConstantPool. Must be non-NULL.
+ *   The vector populated by ReadConstantPool, at least
+ *   constant_pool_count elements long.
  */
-void FreeConstantPool(CONSTANT **constant_pool);
+void FreeConstantPool(u2 constant_pool_count, CONSTANT **constant_pool);
 
 #endif /* CONSTANTPOOL_H_ */

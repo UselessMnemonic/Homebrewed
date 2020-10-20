@@ -33,8 +33,8 @@ typedef struct {
 	struct LineNumberEntry *line_number_table;
 } ATTRIBUTE_LineNumberTable;
 
-JRESULT ReadLineNumberTableAttribute(FILE *file, ATTRIBUTE_LineNumberTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_LineNumberTable(FILE *file, ATTRIBUTE_LineNumberTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeLineNumberTableAttribute(ATTRIBUTE_LineNumberTable *attribute, CONSTANT **constant_pool);
+void FreeAttribute_LineNumberTable(ATTRIBUTE_LineNumberTable *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_LINENUMBERTABLE_H_ */

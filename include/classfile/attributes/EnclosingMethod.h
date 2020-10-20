@@ -21,8 +21,8 @@ typedef struct {
 	u2 method_index;
 } ATTRIBUTE_EnclosingMethod;
 
-JRESULT ReadEnclosingMethodAttribute(FILE *file, ATTRIBUTE_EnclosingMethod *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_EnclosingMethod(FILE *file, ATTRIBUTE_EnclosingMethod *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeEnclosingMethodAttribute(ATTRIBUTE_EnclosingMethod *attribute, CONSTANT **constant_pool);
+void FreeAttribute_EnclosingMethod(ATTRIBUTE_EnclosingMethod *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_ENCLOSINGMETHOD_H_ */

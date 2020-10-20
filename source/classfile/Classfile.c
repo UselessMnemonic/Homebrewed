@@ -5,7 +5,6 @@
 JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 {
 	JRESULT r = 0;
-	memset(clazz, 0, sizeof(CLASSFILE));
 
 	/* Read Header */
 	fread(&clazz->magic, 4, 1, file);
@@ -22,9 +21,10 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->constant_pool_count = Big2(clazz->constant_pool_count);
 
 	u2 num_items = clazz->constant_pool_count - 1;
+	clazz->constant_pool = NULL;
 	if (num_items > 0)
 	{
-		clazz->constant_pool = calloc(num_items, sizeof(CONSTANT *));
+		clazz->constant_pool = calloc(num_items, sizeof(CONSTANT*));
 		r = ReadConstantPool(file, num_items, clazz->constant_pool);
 	}
 
@@ -43,6 +43,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->interfaces_count = Big2(clazz->interfaces_count);
 
 	num_items = clazz->interfaces_count;
+	clazz->interfaces = NULL;
 	if (num_items > 0)
 	{
 		clazz->interfaces = calloc(num_items, sizeof(u2));
@@ -54,6 +55,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->fields_count = Big2(clazz->fields_count);
 
 	num_items = clazz->fields_count;
+	clazz->fields = NULL;
 	if (num_items > 0)
 	{
 		clazz->fields = calloc(num_items, sizeof(FIELD));
@@ -65,6 +67,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->methods_count = Big2(clazz->methods_count);
 
 	num_items = clazz->methods_count;
+	clazz->methods = NULL;
 	if (num_items > 0)
 	{
 		clazz->methods = calloc(num_items, sizeof(METHOD));
@@ -76,14 +79,11 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->attributes_count = Big2(clazz->attributes_count);
 
 	num_items = clazz->attributes_count;
+	clazz->attributes = NULL;
 	if (num_items > 0)
 	{
-		clazz->attributes = calloc(num_items, sizeof(ATTRIBUTE *));
+		clazz->attributes = calloc(num_items, sizeof(ATTRIBUTE*));
 		r = ReadAttributes(file, num_items, clazz->attributes, clazz->constant_pool);
-	}
-	else
-	{
-		clazz->attributes = NULL;
 	}
 
 	//if (fgetc(file) != EOF) r = JRESULT_EXPECTED_EOF;
@@ -91,7 +91,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	return r;
 }
 
-void FreeClassfileReference(CLASSFILE *clazz)
+void FreeClassfile(CLASSFILE *clazz)
 {
 	free(clazz->interfaces);
 	clazz->interfaces = NULL;
@@ -108,23 +108,17 @@ void FreeClassfileReference(CLASSFILE *clazz)
 	free(clazz->attributes);
 	clazz->attributes = NULL;
 
-	FreeConstantPool(clazz->constant_pool);
+	FreeConstantPool(clazz->constant_pool_count, clazz->constant_pool);
 	free(clazz->constant_pool);
 	clazz->constant_pool = NULL;
-}
-
-void FreeClassfile(CLASSFILE *clazz)
-{
-	FreeClassfileReference(clazz);
-	free(clazz);
 }
 
 JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces)
 {
 	JRESULT r = 0;
+	fread(interfaces, 2, interfaces_count, file);
 	for (int i = 0; i < interfaces_count; i++)
 	{
-		fread(&interfaces[i], 2, 1, file);
 		interfaces[i] = Big2(interfaces[i]);
 	}
 	return r;

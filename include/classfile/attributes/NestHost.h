@@ -16,8 +16,8 @@ typedef struct {
 	u2 host_class_index;
 } ATTRIBUTE_NestHost;
 
-JRESULT ReadNestHostAttribute(FILE *file, ATTRIBUTE_NestHost *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_NestHost(FILE *file, ATTRIBUTE_NestHost *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeNestHostAttribute(ATTRIBUTE_NestHost *attribute, CONSTANT **constant_pool);
+void FreeAttribute_NestHost(ATTRIBUTE_NestHost *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_NESTHOST_H_ */

@@ -14,8 +14,8 @@ typedef struct {
 	u2 attribute_length;
 } ATTRIBUTE_Unknown;
 
-JRESULT ReadUnknownAttribute(FILE *file, ATTRIBUTE_Unknown *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_Unknown(FILE *file, ATTRIBUTE_Unknown *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeUnknownAttribute(ATTRIBUTE_Unknown *attribute, CONSTANT **constant_pool);
+void FreeAttribute_Unknown(ATTRIBUTE_Unknown *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_UNKNOWN_H_ */

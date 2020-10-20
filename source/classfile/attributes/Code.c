@@ -1,7 +1,8 @@
 #include "classfile/attributes/Code.h"
 #include <stdlib.h>
 
-JRESULT ReadCodeAttribute(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_length, CONSTANT **constant_pool) {
+JRESULT ReadAttribute_Code(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_length, CONSTANT **constant_pool)
+{
 	JRESULT r = 0;
 
 	fread(&attribute->max_stack, 2, 1, file);
@@ -20,9 +21,11 @@ JRESULT ReadCodeAttribute(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_le
 	attribute->exception_table_length = Big2(attribute->exception_table_length);
 
 	attribute->exception_table = NULL;
-	if (attribute->exception_table_length > 0) {
+	if (attribute->exception_table_length > 0)
+	{
 		attribute->exception_table = calloc(attribute->exception_table_length, sizeof(struct ExceptionEntry));
-		for (int i = 0; i < attribute->exception_table_length; i++) {
+		for (int i = 0; i < attribute->exception_table_length; i++)
+		{
 			struct ExceptionEntry *table = &attribute->exception_table[i];
 
 			fread(table, 2, 4, file);
@@ -37,7 +40,8 @@ JRESULT ReadCodeAttribute(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_le
 	attribute->attributes_count = Big2(attribute->attributes_count);
 
 	attribute->attributes = NULL;
-	if (attribute->attributes_count > 0) {
+	if (attribute->attributes_count > 0)
+	{
 		attribute->attributes = calloc(attribute->attributes_count, sizeof(ATTRIBUTE*));
 		ReadAttributes(file, attribute->attributes_count, attribute->attributes, constant_pool);
 	}
@@ -45,7 +49,8 @@ JRESULT ReadCodeAttribute(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_le
 	return r;
 }
 
-void FreeCodeAttribute(ATTRIBUTE_Code *attribute, CONSTANT **constant_pool) {
+void FreeAttribute_Code(ATTRIBUTE_Code *attribute, CONSTANT **constant_pool)
+{
 	free(attribute->code);
 	free(attribute->exception_table);
 	FreeAttributes(attribute->attributes_count, attribute->attributes, constant_pool);

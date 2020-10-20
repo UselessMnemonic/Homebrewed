@@ -48,11 +48,11 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
  * This releases all memory allocated by ReadAttributes, and sets
  * each element in the vector to NULL.
  *
- * attributes
- *   The vector populated by ReadAttributes. Must be non-NULL.
- *
  * attributes_count
  *   The number of elements in the vector.
+ *
+ * attributes
+ *   The vector populated by ReadAttributes.
  *
  * constant_pool
  *   The constant pool used when creating attributes, needed to

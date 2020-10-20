@@ -21,6 +21,9 @@ struct VerificationInfo {
 	u2 offset_or_cp_index;
 };
 
+/*
+ * Parent structure for Stack Map Frames
+ */
 struct StackMapFrame {
 	u1 frame_type;
 	u1 data[];
@@ -30,12 +33,12 @@ struct StackMapFrame_same {
 	u1 frame_type; // 0 - 63
 };
 
-struct StackMapFrame_same_locals_1_stack_item {
+struct StackMapFrame_same_locals {
 	u1 frame_type; // 64 - 127
 	struct VerificationInfo stack;
 };
 
-struct StackMapFrame_same_locals_1_stack_item_ext {
+struct StackMapFrame_same_locals_ext {
 	u1 frame_type; // 247
 	u2 offset_delta;
 	struct VerificationInfo stack;
@@ -82,10 +85,8 @@ typedef struct {
 	struct StackMapFrame **entries;
 } ATTRIBUTE_StackMapTable;
 
-JRESULT ReadStackMapTableAttribute(FILE *file, ATTRIBUTE_StackMapTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_StackMapTable(FILE *file, ATTRIBUTE_StackMapTable *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeStackMapTableAttribute(ATTRIBUTE_StackMapTable *attribute, CONSTANT **constant_pool);
-
-JRESULT ReadVerificationInfo(FILE *file, struct VerificationInfo *vi, u2 number_of_items);
+void FreeAttribute_StackMapTable(ATTRIBUTE_StackMapTable *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_STACKMAPTABLE_H_ */

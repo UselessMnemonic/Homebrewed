@@ -15,8 +15,8 @@ typedef struct {
 	u2 constantvalue_index;
 } ATTRIBUTE_ConstantValue;
 
-JRESULT ReadConstantValueAttribute(FILE *file, ATTRIBUTE_ConstantValue *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_ConstantValue(FILE *file, ATTRIBUTE_ConstantValue *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeConstantValueAttribute(ATTRIBUTE_ConstantValue *attribute, CONSTANT **constant_pool);
+void FreeAttribute_ConstantValue(ATTRIBUTE_ConstantValue *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_CONSTANTVALUE_H_ */

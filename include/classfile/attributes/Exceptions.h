@@ -20,8 +20,8 @@ typedef struct {
 	u2 *exception_index_table;
 } ATTRIBUTE_Exceptions;
 
-JRESULT ReadExceptionsAttribute(FILE *file, ATTRIBUTE_Exceptions *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_Exceptions(FILE *file, ATTRIBUTE_Exceptions *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeExceptionsAttribute(ATTRIBUTE_Exceptions *attribute, CONSTANT **constant_pool);
+void FreeAttribute_Exceptions(ATTRIBUTE_Exceptions *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_EXCEPTIONS_H_ */

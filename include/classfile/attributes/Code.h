@@ -67,8 +67,8 @@ typedef struct {
 	ATTRIBUTE **attributes;
 } ATTRIBUTE_Code;
 
-JRESULT ReadCodeAttribute(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_Code(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeCodeAttribute(ATTRIBUTE_Code *attribute, CONSTANT **constant_pool);
+void FreeAttribute_Code(ATTRIBUTE_Code *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_CODE_H_ */

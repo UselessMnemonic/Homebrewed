@@ -91,8 +91,8 @@ JRESULT ReadConstantPool(FILE *file, u2 constant_pool_count, CONSTANT **constant
 			cp_block = realloc(cp_block, cp_block_size += sizeof(CONSTANT_Utf8) + length + 1); //TODO remove leading null?
 			CONSTANT_Utf8 *utf8_info = cp_block + offsets[i];
 
-			fread (utf8_info->runes, 1, length, file);
-			utf8_info->runes[utf8_info->length] = 0;
+			fread(utf8_info->runes, 1, length, file);
+			utf8_info->runes[length] = 0;
 			utf8_info->length = length;
 			utf8_info->tag = curr_tag;
 			break;
@@ -109,7 +109,13 @@ JRESULT ReadConstantPool(FILE *file, u2 constant_pool_count, CONSTANT **constant
 	return r;
 }
 
-void FreeConstantPool(CONSTANT **constant_pool)
+void FreeConstantPool(u2 constant_pool_count, CONSTANT **constant_pool)
 {
-	free(constant_pool[0]);
+	if (constant_pool_count == 0 || constant_pool == NULL) return;
+	void *root = constant_pool[0];
+	for (int i = 0; i < constant_pool_count; i++)
+	{
+		constant_pool[i] = NULL;
+	}
+	free(root);
 }

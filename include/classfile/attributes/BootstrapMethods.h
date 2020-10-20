@@ -40,8 +40,8 @@ typedef struct {
 	struct BootstrapMethod **bootstrap_methods;
 } ATTRIBUTE_BootstrapMethods;
 
-JRESULT ReadBootstrapMethodsAttribute(FILE *file, ATTRIBUTE_BootstrapMethods *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_BootstrapMethods(FILE *file, ATTRIBUTE_BootstrapMethods *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeBootstrapMethodsAttribute(ATTRIBUTE_BootstrapMethods *attribute, CONSTANT **constant_pool);
+void FreeAttribute_BootstrapMethods(ATTRIBUTE_BootstrapMethods *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_BOOTSTRAPMETHODS_H_ */

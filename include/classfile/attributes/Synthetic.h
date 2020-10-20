@@ -11,8 +11,8 @@ typedef struct {
 	u2 attribute_name_index;
 } ATTRIBUTE_Synthetic;
 
-JRESULT ReadSyntheticAttribute(FILE *file, ATTRIBUTE_Synthetic *attribute, u4 attribute_length, CONSTANT **constant_pool);
+JRESULT ReadAttribute_Synthetic(FILE *file, ATTRIBUTE_Synthetic *attribute, u4 attribute_length, CONSTANT **constant_pool);
 
-void FreeSyntheticAttribute(ATTRIBUTE_Synthetic *attribute, CONSTANT **constant_pool);
+void FreeAttribute_Synthetic(ATTRIBUTE_Synthetic *attribute, CONSTANT **constant_pool);
 
 #endif /* CLASSFILE_ATTRIBUTES_SYNTHETIC_H_ */

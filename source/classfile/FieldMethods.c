@@ -23,14 +23,11 @@ JRESULT ReadFields(FILE *file, u2 fields_count, FIELD *fields, CONSTANT **consta
 		fread(&curr_field->attributes_count, 2, 1, file);
 		curr_field->attributes_count = Big2(curr_field->attributes_count);
 
+		curr_field->attributes = NULL;
 		if (curr_field->attributes_count > 0)
 		{
 			curr_field->attributes = calloc(curr_field->attributes_count, sizeof(ATTRIBUTE *));
 			ReadAttributes(file, curr_field->attributes_count, curr_field->attributes, constant_pool);
-		}
-		else
-		{
-			curr_field->attributes = NULL;
 		}
 	}
 	return r;
@@ -43,9 +40,11 @@ JRESULT ReadMethods(FILE *file, u2 methods_count, METHOD *methods, CONSTANT **co
 
 void FreeFields(u2 fields_count, FIELD *fields, CONSTANT **constant_pool)
 {
+	if (fields_count == 0 || fields == NULL) return;
 	for (int i = 0; i < fields_count; i++)
 	{
 		FreeAttributes(fields[i].attributes_count, fields[i].attributes, constant_pool);
+		free(fields[i].attributes);
 	}
 }
 

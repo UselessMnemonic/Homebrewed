@@ -7,7 +7,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool) {
+JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
+{
 	JRESULT r = 0;
 
 	// linear block of memory that will store attribute data
@@ -26,7 +27,8 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 	size_t delta = 0;
 	ReadAttributeFunction readAttribute;
 
-	for (int i = 0; i < attributes_count; i++) {
+	for (int i = 0; i < attributes_count; i++)
+	{
 		// read attribute header
 		fread(&curr_attribute_name_index, 2, 1, file);
 		curr_attribute_name_index = Big2(curr_attribute_name_index);
@@ -42,25 +44,30 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 		//printf("Found Attribute \"%s\" (%lu bytes)\n", attribute_name, curr_length);
 
 		// find which attribute is being read
-		if (strcmp(attribute_name, "Code") == 0) {
+		if (strcmp(attribute_name, "Code") == 0)
+		{
 			delta = sizeof(ATTRIBUTE_Code);
-			readAttribute = (ReadAttributeFunction)ReadCodeAttribute;
+			readAttribute = (ReadAttributeFunction)ReadAttribute_Code;
 		}
-		else if (strcmp(attribute_name, "SourceFile") == 0) {
+		else if (strcmp(attribute_name, "SourceFile") == 0)
+		{
 			delta = sizeof(ATTRIBUTE_SourceFile);
-			readAttribute = (ReadAttributeFunction)ReadSourceFileAttribute;
+			readAttribute = (ReadAttributeFunction)ReadAttribute_SourceFile;
 		}
-		else if (strcmp(attribute_name, "LineNumberTable") == 0) {
+		else if (strcmp(attribute_name, "LineNumberTable") == 0)
+		{
 			delta = sizeof(ATTRIBUTE_LineNumberTable);
-			readAttribute = (ReadAttributeFunction)ReadLineNumberTableAttribute;
+			readAttribute = (ReadAttributeFunction)ReadAttribute_LineNumberTable;
 		}
-		else if (strcmp(attribute_name, "LocalVariableTable") == 0) {
+		else if (strcmp(attribute_name, "LocalVariableTable") == 0)
+		{
 			delta = sizeof(ATTRIBUTE_LocalVariableTable);
-			readAttribute = (ReadAttributeFunction)ReadLocalVariableTableAttribute;
+			readAttribute = (ReadAttributeFunction)ReadAttribute_LocalVariableTable;
 		}
-		else {
+		else
+		{
 			delta = sizeof(ATTRIBUTE_Unknown);
-			readAttribute = (ReadAttributeFunction)ReadUnknownAttribute;
+			readAttribute = (ReadAttributeFunction)ReadAttribute_Unknown;
 		}
 
 		// note the offset into the block and extend the block
@@ -73,34 +80,43 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 		r = readAttribute(file, curr_attribute, curr_attribute_length, constant_pool);
 	}
 
-	for (int i = 0; i < attributes_count; i++) {
+	for (int i = 0; i < attributes_count; i++)
+	{
 		attributes[i] = attribute_block + attribute_offsets[i];
 	}
 
 	return r;
 }
 
-void FreeAttributes(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool) {
+void FreeAttributes(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
+{
+	if (attributes_count == 0 || attributes == NULL) return;
+
 	const char *attribute_name;
 	u2 curr_name_index;
 	FreeAttributeFunction freeAttribute;
 	void *block = attributes[0];
-	for (int i = 0; i < attributes_count; i++) {
+	for (int i = 0; i < attributes_count; i++)
+	{
 		curr_name_index = attributes[i]->attribute_name_index;
 		attribute_name =
 				(const char *)((CONSTANT_Utf8*) constant_pool[curr_name_index - 1])->runes;
 
-		if (strcmp(attribute_name, "Code") == 0) {
-			freeAttribute = (FreeAttributeFunction)FreeCodeAttribute;
+		if (strcmp(attribute_name, "Code") == 0)
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_Code;
 		}
-		else if (strcmp(attribute_name, "LineNumberTable") == 0) {
-			freeAttribute = (FreeAttributeFunction)FreeLineNumberTableAttribute;
+		else if (strcmp(attribute_name, "LineNumberTable") == 0)
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_LineNumberTable;
 		}
-		else if (strcmp(attribute_name, "LocalVariableTable") == 0) {
-			freeAttribute = (FreeAttributeFunction)FreeLocalVariableTableAttribute;
+		else if (strcmp(attribute_name, "LocalVariableTable") == 0)
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_LocalVariableTable;
 		}
-		else {
-			freeAttribute = (FreeAttributeFunction)FreeUnknownAttribute;
+		else
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_Unknown;
 		}
 		freeAttribute(attributes[i], constant_pool);
 		attributes[i] = NULL;
