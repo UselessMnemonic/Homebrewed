@@ -7,6 +7,7 @@ JRESULT ReadLocalVariableTableAttribute(FILE *file, ATTRIBUTE_LocalVariableTable
 	fread(&attribute->local_variable_table_length, 2, 1, file);
 	attribute->local_variable_table_length = Big2(attribute->local_variable_table_length);
 
+	attribute->local_variable_table = NULL;
 	if (attribute->local_variable_table_length > 0) {
 		attribute->local_variable_table = calloc(attribute->local_variable_table_length, sizeof(struct LocalVariableEntry));
 		for (int i = 0; i < attribute->local_variable_table_length; i++) {
@@ -19,11 +20,10 @@ JRESULT ReadLocalVariableTableAttribute(FILE *file, ATTRIBUTE_LocalVariableTable
 			table->index = Big2(table->index);
 		}
 	}
-	else {
-		attribute->local_variable_table = NULL;
-	}
 
 	return r;
 }
 
-void FreeLocalVariableTableAttribute(ATTRIBUTE_LocalVariableTable *attribute, CONSTANT **constant_pool);
+void FreeLocalVariableTableAttribute(ATTRIBUTE_LocalVariableTable *attribute, CONSTANT **constant_pool) {
+	free(attribute->local_variable_table);
+}

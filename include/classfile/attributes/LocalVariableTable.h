@@ -13,11 +13,11 @@
  *   the range is [start_pc, start_pc + length)
  *
  * name_index
- *   A Constant Pool index to a CONSTANT_Utf8_info containing
+ *   A Constant Pool index to a CONSTANT_Utf8 containing
  *   the name of the local variable.
  *
  * descriptor_index
- *   A Constant Pool index to a CONSTANT_Utf8_info containing
+ *   A Constant Pool index to a CONSTANT_Utf8 containing
  *   the field descriptor of the local variable.
  *
  * index

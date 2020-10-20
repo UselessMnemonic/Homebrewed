@@ -8,7 +8,7 @@
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7.28
  *
  * host_class_index
- *   A Constant Pool index to a CONSTANT_Class_info structure representing
+ *   A Constant Pool index to a CONSTANT_Class structure representing
  *   a class that hosts the current class.
  */
 typedef struct {

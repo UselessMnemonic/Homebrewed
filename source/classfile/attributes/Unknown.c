@@ -8,4 +8,6 @@ JRESULT ReadUnknownAttribute(FILE *file, ATTRIBUTE_Unknown *attribute, u4 attrib
 	return r;
 }
 
-void FreeUnknownAttribute(ATTRIBUTE_Unknown *attribute, CONSTANT **constant_pool);
+void FreeUnknownAttribute(ATTRIBUTE_Unknown *attribute, CONSTANT **constant_pool) {
+	return;
+}

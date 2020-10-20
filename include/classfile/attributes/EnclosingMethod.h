@@ -8,11 +8,11 @@
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7.7
  *
  * class_index
- *   A Constant Pool index to a CONSTANT_Class_info structure representing
+ *   A Constant Pool index to a CONSTANT_Class structure representing
  *   the innermost class that encloses the declaration of the current class.
  *
  * method_index
- *   A Constant Pool index to a CONSTANT_NameAndType_info structure
+ *   A Constant Pool index to a CONSTANT_NameAndType structure
  *   representing the method referenced by the class mentioned above.
  */
 typedef struct {

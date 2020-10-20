@@ -5,29 +5,38 @@
 #include "classfile/ConstantPool.h"
 #include <stdio.h>
 
+/*
+ * The parent structure for all attributes. This acts like a header
+ * preceding the attribute's data.
+ * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7
+ *
+ * attribute_name_index
+ *   A Constant Pool index to a CONSTANT_Utf8 structure
+ *   for the name of the attribute.
+ *
+ * info
+ *   Names the data following the header, which is
+ *   implementation dependent.
+ */
 typedef struct {
 	u2 attribute_name_index;
 	u1 info[];
 } ATTRIBUTE;
 
 /*
- * This parses some number of attributes from a file into a vector
- * of pointers.
- *
- * The return value value indicates any potential errors during
- * the operation.
+ * This parses some number of attributes from a file into a vector.
  *
  * file
  *   The file providing an attribute stream. The current location of
- *   the file buffer must be at the start of the attribute stream.
+ *   the file buffer must be at the start of the stream.
  *   Must be non-NULL.
  *
  * attributes_count
  *   The number of attributes to parse from the file.
  *
  * attributes
- *   The vector of pointers to be populated. Must be at least as long as
- *   attributes_count elements. Must be non-NULL.
+ *   The vector of attributes to be populated. Must be at least as
+ *   long as attributes_count elements. Must be non-NULL.
  *
  * constant_pool
  *   The constant pool parsed earlier from the same file, needed to
@@ -36,14 +45,14 @@ typedef struct {
 JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool);
 
 /*
- * This releases all memory allocated by GetAttributes, and sets
+ * This releases all memory allocated by ReadAttributes, and sets
  * each element in the vector to NULL.
  *
  * attributes
  *   The vector populated by ReadAttributes. Must be non-NULL.
  *
  * attributes_count
- *   The length the vector.
+ *   The number of elements in the vector.
  *
  * constant_pool
  *   The constant pool used when creating attributes, needed to

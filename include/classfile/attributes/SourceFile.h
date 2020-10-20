@@ -8,7 +8,7 @@
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7.10
  *
  * sourcefile_index
- *   A Constant Pool index to a CONSTANT_Utf8_info structure
+ *   A Constant Pool index to a CONSTANT_Utf8 structure
  *   for the name of the source file.
  */
 typedef struct {

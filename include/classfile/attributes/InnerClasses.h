@@ -7,16 +7,16 @@
  * A structure describing an inner class, a class that is not a member of a package.
  *
  * inner_class_info_index
- *   A Constant Pool index to a CONSTANT_Class_info for the
+ *   A Constant Pool index to a CONSTANT_Class for the
  *   inner class.
  *
  * outter_class_info_index
- *   A Constant Pool index to a CONSTANT_Class_info for the
+ *   A Constant Pool index to a CONSTANT_Class for the
  *   enclosing class, or zero if the inner class has no
  *   enclosing class.
  *
  * inner_name_index
- *   A Constant Pool index to a CONSTANT_Utf8_info for the
+ *   A Constant Pool index to a CONSTANT_Utf8 for the
  *   name of the inner class, or 0 if the class is anonymous.
  *
  * inner_class_access_flags

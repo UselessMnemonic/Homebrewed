@@ -14,11 +14,10 @@
  *   The start of the exception handler in the code array.
  *
  * catch_type
- *   When non-zero, this is an index to a CONSTANT_Class_info structure
- *   in the Constant Pool. The exception handler will take over iff
- *   the handler is Throwable.
- *   When zero, this handler responds to any exceptions thrown in its
- *   range.
+ *   When non-zero, this is a Constant Pool index to a CONSTANT_Class structure.
+ *   The exception handler will take over iff the handler is the class/superclass
+ *   of the thrown exception.
+ *   When zero, this handler responds to any exceptions thrown in its range.
  *
  */
 struct ExceptionEntry {

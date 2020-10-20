@@ -11,7 +11,7 @@
  *   The number of elements in the classes array.
  *
  * classes
- *   An array of Constant Pool indices to CONSTANT_Class_info structures
+ *   An array of Constant Pool indices to CONSTANT_Class structures
  *   representing a class which is hosted by this current class.
  */
 typedef struct {

@@ -8,8 +8,7 @@
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7.2
  *
  * constantvalue_index
- *   The constant_pool entry at that index gives the value represented
- *   by this attribute.
+ *   A Constant Pool index to the constant's value.
  */
 typedef struct {
 	u2 attribute_name_index;

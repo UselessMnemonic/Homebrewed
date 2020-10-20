@@ -8,7 +8,7 @@
  * to support dynamic languages.
  *
  * bootstrap_method_ref
- *   A Constant Pool index to a CONSTANT_MethodHandle_info describing
+ *   A Constant Pool index to a CONSTANT_MethodHandle describing
  *   the method.
  *
  * num_boostram_arguments

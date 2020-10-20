@@ -8,8 +8,17 @@
 #include "FieldMethods.h"
 #include "Attributes.h"
 
-/* Classfile Definition */
-
+/*
+ * A structure defining a class file for use with the JVM.
+ * All relevant components are exposed here for access.
+ * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.1
+ *
+ * magic
+ *   The magic number at the classfile header.
+ *
+ * minor_version
+ *
+ */
 typedef struct {
 	u4 magic;
 	u2 minor_version;
@@ -29,10 +38,32 @@ typedef struct {
 	ATTRIBUTE **attributes;
 } CLASSFILE;
 
+/*
+ * Parses a classfile from a file into a pre-allocated
+ * structure.
+ *
+ * file
+ *   The file providing classfile data. The current location of
+ *   the file buffer must be at the start of the data.
+ *   Must be non-NULL.
+ *
+ * clazz
+ *   A pre-allocated structure in which to store data.
+ */
 JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz);
-JRESULT ReadInterfaces(FILE *file, u2 *interfaces, u2 num_items);
 
+/*
+ * Reads an array of interfaces from a file.
+ */
+JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces);
+
+/*
+ * This releases all memory allocated by ReadClassfile.
+ * Note that the pointer itself is not deallocated.
+ *
+ * clazz
+ *   The classfile populated by ReadClassfile. Must be non-NULL.
+ */
 void FreeClassfile(CLASSFILE *clazz);
-void FreeClassfileReference(CLASSFILE *clazz);
 
 #endif /* CLASSFILE_H_ */

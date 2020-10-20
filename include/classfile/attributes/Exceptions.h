@@ -11,7 +11,7 @@
  *   The number of elements in the table.
  *
  * exception_index_table
- *   An array of Constant Pool indices to CONSTANT_Class_info structures
+ *   An array of Constant Pool indices to CONSTANT_Class structures
  *   describing the exception types thrown by the method.
  */
 typedef struct {

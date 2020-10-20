@@ -3,11 +3,11 @@
 
 #include "classfile/FieldMethods.h"
 
-JRESULT ReadFields(FILE *file, FIELD *fields, u2 num_items, CONSTANT **constant_pool)
+JRESULT ReadFields(FILE *file, u2 fields_count, FIELD *fields, CONSTANT **constant_pool)
 {
 	JRESULT r = 0;
 	FIELD *curr_field = NULL;
-	for (int i = 0; i < num_items; i++)
+	for (int i = 0; i < fields_count; i++)
 	{
 		curr_field = &fields[i];
 
@@ -36,21 +36,20 @@ JRESULT ReadFields(FILE *file, FIELD *fields, u2 num_items, CONSTANT **constant_
 	return r;
 }
 
-JRESULT ReadMethods(FILE *file, METHOD *methods, u2 num_items, CONSTANT **constant_pool)
+JRESULT ReadMethods(FILE *file, u2 methods_count, METHOD *methods, CONSTANT **constant_pool)
 {
-	return ReadFields(file, (FIELD *)methods, num_items, constant_pool);
+	return ReadFields(file, methods_count, (FIELD *)methods, constant_pool);
 }
 
-void FreeFields(FIELD *fields, u2 fields_count, CONSTANT **constant_pool)
+void FreeFields(u2 fields_count, FIELD *fields, CONSTANT **constant_pool)
 {
 	for (int i = 0; i < fields_count; i++)
 	{
 		FreeAttributes(fields[i].attributes_count, fields[i].attributes, constant_pool);
 	}
-	free(fields);
 }
 
-void FreeMethods(METHOD *methods, u2 methods_count, CONSTANT **constant_pool)
+void FreeMethods(u2 methods_count, METHOD *methods, CONSTANT **constant_pool)
 {
-	FreeFields((FIELD *)methods, methods_count, constant_pool);
+	FreeFields(methods_count, (FIELD *)methods, constant_pool);
 }

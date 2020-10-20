@@ -37,7 +37,7 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 		// resolve attribute name and check if supported
 		// TODO replace with Modified-UTF8-safe code
 		const char *attribute_name =
-				(const char *)((struct CONSTANT_Utf8_info*) constant_pool[curr_attribute_name_index - 1])->runes;
+				(const char *)((CONSTANT_Utf8*) constant_pool[curr_attribute_name_index - 1])->runes;
 
 		//printf("Found Attribute \"%s\" (%lu bytes)\n", attribute_name, curr_length);
 
@@ -80,30 +80,30 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 	return r;
 }
 
-// TODO move code into functions
 void FreeAttributes(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool) {
 	const char *attribute_name;
 	u2 curr_name_index;
+	FreeAttributeFunction freeAttribute;
+	void *block = attributes[0];
 	for (int i = 0; i < attributes_count; i++) {
 		curr_name_index = attributes[i]->attribute_name_index;
 		attribute_name =
-				(const char *)((struct CONSTANT_Utf8_info*) constant_pool[curr_name_index - 1])->runes;
+				(const char *)((CONSTANT_Utf8*) constant_pool[curr_name_index - 1])->runes;
 
 		if (strcmp(attribute_name, "Code") == 0) {
-			ATTRIBUTE_Code *attr = (ATTRIBUTE_Code*) attributes[i];
-			free(attr->code);
-			free(attr->exception_table);
-			FreeAttributes(attr->attributes_count, attr->attributes, constant_pool);
+			freeAttribute = (FreeAttributeFunction)FreeCodeAttribute;
 		}
 		else if (strcmp(attribute_name, "LineNumberTable") == 0) {
-			ATTRIBUTE_LineNumberTable *attr = (ATTRIBUTE_LineNumberTable*) attributes[i];
-			free(attr->line_number_table);
+			freeAttribute = (FreeAttributeFunction)FreeLineNumberTableAttribute;
 		}
 		else if (strcmp(attribute_name, "LocalVariableTable") == 0) {
-			ATTRIBUTE_LocalVariableTable *attr = (ATTRIBUTE_LocalVariableTable*) attributes[i];
-			free(attr->local_variable_table);
+			freeAttribute = (FreeAttributeFunction)FreeLocalVariableTableAttribute;
 		}
+		else {
+			freeAttribute = (FreeAttributeFunction)FreeUnknownAttribute;
+		}
+		freeAttribute(attributes[i], constant_pool);
+		attributes[i] = NULL;
 	}
-	free(attributes[0]);
-	free(attributes);
+	free(block);
 }

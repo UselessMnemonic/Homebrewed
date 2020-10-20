@@ -8,7 +8,7 @@
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.7.9
  *
  * signature_index
- *   A Constant Pool index to a CONSTANT_Utf8_info structure
+ *   A Constant Pool index to a CONSTANT_Utf8 structure
  *   representing the class, method, or field attribute.
  */
 typedef struct {
