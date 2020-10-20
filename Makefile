@@ -34,6 +34,7 @@ include $(DEVKITARM)/3ds_rules
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source \
+				source/util \
 				source/classfile \
 				source/classfile/attributes
 DATA		:=	data
