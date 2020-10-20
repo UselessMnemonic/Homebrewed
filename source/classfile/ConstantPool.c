@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
-#include "ClassfileConstantPool.h"
+
+#include "classfile/ConstantPool.h"
 
 JRESULT ReadConstantPool(FILE *file, CONSTANT **constant_pool, u2 num_items)
 {

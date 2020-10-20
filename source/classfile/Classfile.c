@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "Classfile.h"
+#include "classfile/Classfile.h"
 
 JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 {
