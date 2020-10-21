@@ -3,6 +3,10 @@
 
 #include "classfile/ConstantPool.h"
 
+/*
+ * This uses a linear allocation algorithm, the efficacy of which
+ * is still in question.
+ */
 JRESULT ReadConstantPool(FILE *file, u2 constant_pool_count, CONSTANT **constant_pool)
 {
 	JRESULT r = 0;

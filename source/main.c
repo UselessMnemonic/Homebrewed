@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 
 	// load example class
 	CLASSFILE clazz;
-	FILE *file = fopen("Main.class", "rb");
+	FILE *file = fopen("bin/main/Other.class", "rb");
 	JRESULT r = 0;
 
 	if (file == NULL)
@@ -37,7 +37,6 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		printf("Magic is 0x%04lX\n", clazz.magic);
 		printf("Minor Version: %u\n", clazz.minor_version);
 		printf("Major Version: %u\n", clazz.major_version);
 		printf("Constant Pool Count: %u\n", clazz.constant_pool_count);

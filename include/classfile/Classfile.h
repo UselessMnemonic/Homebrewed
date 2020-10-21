@@ -13,14 +13,9 @@
  * All relevant components are exposed here for access.
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.1
  *
- * magic
- *   The magic number at the classfile header.
- *
- * minor_version
- *
+ * TODO Convert Classfile reader into Clazz parser
  */
 typedef struct {
-	u4 magic;
 	u2 minor_version;
 	u2 major_version;
 	u2 constant_pool_count;

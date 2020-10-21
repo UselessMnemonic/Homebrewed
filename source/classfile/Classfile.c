@@ -7,8 +7,10 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	JRESULT r = 0;
 
 	/* Read Header */
-	fread(&clazz->magic, 4, 1, file);
-	clazz->magic = Big4(clazz->magic);
+	u4 magic;
+	fread(&magic, 4, 1, file);
+	magic = Big4(magic);
+	if (magic != 0xCAFEBABE) return JRESULT_BAD_MAGIC;
 
 	fread(&clazz->minor_version, 2, 1, file);
 	clazz->minor_version = Big2(clazz->minor_version);
@@ -86,7 +88,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 		r = ReadAttributes(file, num_items, clazz->attributes, clazz->constant_pool);
 	}
 
-	//if (fgetc(file) != EOF) r = JRESULT_EXPECTED_EOF;
+	if (fgetc(file) != EOF) r = JRESULT_EXPECTED_EOF;
 
 	return r;
 }

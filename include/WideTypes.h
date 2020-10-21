@@ -20,7 +20,7 @@ typedef int32_t JINT;
 typedef int64_t JLONG;
 typedef float JFLOAT;
 typedef double JDOUBLE;
-typedef uint8_t JBOOLEAN;
+typedef uint8_t JBOOL;
 typedef uint16_t JCHAR;
 
 typedef u1 bytecode;
@@ -28,6 +28,7 @@ typedef u1 bytecode;
 #define JRESULT_OK (0)
 #define JRESULT_ALLOCATION_FAILED (1)
 #define JRESULT_BAD_ATTRIBUTE (2)
+#define JRESULT_BAD_MAGIC (3)
 #define JRESULT_BAD_CONSTANT (4)
 #define JRESULT_UNKNOWN_CONSTANT (5)
 #define JRESULT_BAD_FIELD_METHOD (6)
