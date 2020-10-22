@@ -1,9 +1,11 @@
-#ifndef FIELDMETHODS_H_
-#define FIELDMETHODS_H_
+#ifndef CLASSFILE_MEMBER_H_
+#define CLASSFILE_MEMBER_H_
 
 #include "../WideTypes.h"
-#include "attributes/Attributes.h"
 #include "ConstantPool.h"
+#include "attributes/Attributes.h"
+#include "attributes/ConstantValue.h"
+#include "attributes/Code.h"
 #include <stdio.h>
 
 /*
@@ -35,6 +37,8 @@ typedef struct
 	u2 descriptor_index;
 	u2 attributes_count;
 	ATTRIBUTE **attributes;
+
+	ATTRIBUTE_ConstantValue *constant_value_attr;
 } FIELD;
 
 typedef struct
@@ -44,6 +48,8 @@ typedef struct
 	u2 descriptor_index;
 	u2 attributes_count;
 	ATTRIBUTE **attributes;
+
+	ATTRIBUTE_Code *code_attr;
 } METHOD;
 
 /*
@@ -114,4 +120,4 @@ void FreeFields(u2 fields_count, FIELD *fields, CONSTANT **constant_pool);
  */
 void FreeMethods(u2 methods_count, METHOD *methods, CONSTANT **constant_pool);
 
-#endif /* FIELDMETHODS_H_ */
+#endif /* CLASSFILE_MEMBER_H_ */

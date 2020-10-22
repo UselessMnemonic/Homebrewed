@@ -35,7 +35,9 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source \
 				source/runtime \
+				source/runtime/heap \
 				source/util \
+				source/util/print \
 				source/classfile \
 				source/classfile/attributes
 DATA		:=	data

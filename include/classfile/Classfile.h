@@ -1,9 +1,9 @@
-#ifndef CLASSFILE_H_
-#define CLASSFILE_H_
+#ifndef CLASSFILE_CLASSFILE_H_
+#define CLASSFILE_CLASSFILE_H_
 
 #include "../WideTypes.h"
 #include "ConstantPool.h"
-#include "FieldMethods.h"
+#include "Member.h"
 #include "attributes/Attributes.h"
 #include <stdio.h>
 
@@ -44,7 +44,7 @@ typedef struct {
  * clazz
  *   A pre-allocated structure in which to store data.
  */
-JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz);
+JRESULT CLASSFILE_ReadFromFile(FILE *file, CLASSFILE *clazz);
 
 /*
  * This releases all memory allocated by ReadClassfile.
@@ -53,6 +53,6 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz);
  * clazz
  *   The classfile populated by ReadClassfile. Must be non-NULL.
  */
-void FreeClassfile(CLASSFILE *clazz);
+void CLASSFILE_Dealloc(CLASSFILE *clazz);
 
-#endif /* CLASSFILE_H_ */
+#endif /* CLASSFILE_CLASSFILE_H_ */

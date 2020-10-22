@@ -1,22 +1,9 @@
 #include "classfile/Classfile.h"
+#include "util/FileReading.h"
 #include <string.h>
 #include <stdlib.h>
 
-/*
- * Reads an array of interfaces from a file.
- */
-JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces)
-{
-	JRESULT r = 0;
-	fread(interfaces, 2, interfaces_count, file);
-	for (int i = 0; i < interfaces_count; i++)
-	{
-		interfaces[i] = Big2(interfaces[i]);
-	}
-	return r;
-}
-
-JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
+JRESULT CLASSFILE_ReadFromFile(FILE *file, CLASSFILE *clazz)
 {
 	JRESULT r = 0;
 
@@ -63,7 +50,7 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	if (num_items > 0)
 	{
 		clazz->interface_name_indices = calloc(num_items, sizeof(u2));
-		r = ReadInterfaces(file, num_items, clazz->interface_name_indices);
+		r = FILE_ReadArrayU2(clazz->interface_name_indices, num_items, file);
 	}
 
 	/* Parse Fields */
@@ -99,15 +86,15 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	if (num_items > 0)
 	{
 		clazz->attributes = calloc(num_items, sizeof(ATTRIBUTE*));
-		r = ReadAttributes(file, num_items, clazz->attributes, clazz->constant_pool);
+		r = ATTRIBUTE_ReadFromFile(file, num_items, clazz->attributes, clazz->constant_pool);
 	}
 
-	if (fgetc(file) != EOF) r = JRESULT_EXPECTED_EOF;
+	//if (fgetc(file) != EOF) r = JRESULT_EXPECTED_EOF;
 
 	return r;
 }
 
-void FreeClassfile(CLASSFILE *clazz)
+void CLASSFILE_Dealloc(CLASSFILE *clazz)
 {
 	free(clazz->interface_name_indices);
 	clazz->interface_name_indices = NULL;
@@ -120,7 +107,7 @@ void FreeClassfile(CLASSFILE *clazz)
 	free(clazz->methods);
 	clazz->methods = NULL;
 
-	FreeAttributes(clazz->attributes_count, clazz->attributes, clazz->constant_pool);
+	ATTRIBUTE_Dealloc(clazz->attributes_count, clazz->attributes, clazz->constant_pool);
 	free(clazz->attributes);
 	clazz->attributes = NULL;
 

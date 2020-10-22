@@ -35,6 +35,7 @@ typedef u1 bytecode;
 #define JRESULT_BAD_CLASSFILE (7)
 #define JRESULT_EXPECTED_EOF (8)
 #define JRESULT_UNKNOWN_STACK_FRAME (9)
+#define JRESULT_FILE_ERROR (10)
 
 typedef u1 JRESULT;
 

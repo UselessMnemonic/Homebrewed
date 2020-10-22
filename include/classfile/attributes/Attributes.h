@@ -1,5 +1,5 @@
-#ifndef ATTRIBUTES_H_
-#define ATTRIBUTES_H_
+#ifndef CLASSFILE_ATTRIBUTES_ATTRIBUTES_H_
+#define CLASSFILE_ATTRIBUTES_ATTRIBUTES_H_
 
 #include "../../WideTypes.h"
 #include "../ConstantPool.h"
@@ -42,7 +42,7 @@ typedef struct {
  *   The constant pool parsed earlier from the same file, needed to
  *   identify each attribute. Must be non-NULL.
  */
-JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool);
+JRESULT ATTRIBUTE_ReadFromFile(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool);
 
 /*
  * This releases all memory allocated by ReadAttributes, and sets
@@ -58,7 +58,7 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
  *   The constant pool used when creating attributes, needed to
  *   identify each attribute. Must be non-NULL.
  */
-void FreeAttributes(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool);
+void ATTRIBUTE_Dealloc(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool);
 
 /*
  * This describes a function type that reads an attribute
@@ -81,4 +81,4 @@ typedef JRESULT (*ReadAttributeFunction)(FILE*, ATTRIBUTE*, u4, CONSTANT**);
  */
 typedef void (*FreeAttributeFunction)(ATTRIBUTE*, CONSTANT**);
 
-#endif /* ATTRIBUTES_H_ */
+#endif /* CLASSFILE_ATTRIBUTES_ATTRIBUTES_H_ */

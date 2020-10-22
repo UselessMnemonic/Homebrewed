@@ -1,5 +1,5 @@
-#ifndef CONSTANTPOOL_H_
-#define CONSTANTPOOL_H_
+#ifndef CLASSFILE_CONSTANTPOOL_H_
+#define CLASSFILE_CONSTANTPOOL_H_
 
 #include "../WideTypes.h"
 #include <stdio.h>
@@ -169,4 +169,4 @@ JRESULT ReadConstantPool(FILE *file, u2 constant_pool_count, CONSTANT **constant
  */
 void FreeConstantPool(u2 constant_pool_count, CONSTANT **constant_pool);
 
-#endif /* CONSTANTPOOL_H_ */
+#endif /* CLASSFILE_CONSTANTPOOL_H_ */

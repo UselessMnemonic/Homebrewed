@@ -3,8 +3,7 @@
 
 #include "../WideTypes.h"
 #include "Class.h"
-#include <stdio.h>
 
-JRESULT Bootstrap_LoadClassFromFile(FILE *classfile, CLASS *clazz);
+JRESULT Bootstrap_LoadClassFromFile(const char* filename, CLASS *clazz);
 
 #endif /* RUNTIME_BOOTSTRAPLOADER_H_ */

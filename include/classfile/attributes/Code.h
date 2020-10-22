@@ -2,6 +2,7 @@
 #define CLASSFILE_ATTRIBUTES_CODE_H_
 
 #include "Attributes.h"
+#include "StackMapTable.h"
 
 /*
  * A structure describing an exception handler.
@@ -65,6 +66,8 @@ typedef struct {
 	struct ExceptionEntry *exception_table;
 	u2 attributes_count;
 	ATTRIBUTE **attributes;
+
+	ATTRIBUTE_StackMapTable *stack_attr;
 } ATTRIBUTE_Code;
 
 JRESULT ReadAttribute_Code(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_length, CONSTANT **constant_pool);

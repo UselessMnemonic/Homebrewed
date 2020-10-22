@@ -1,22 +1,22 @@
 #include "classfile/attributes/Attributes.h"
+
+#include "classfile/attributes/ConstantValue.h"
 #include "classfile/attributes/Code.h"
-#include "classfile/attributes/SourceFile.h"
-#include "classfile/attributes/LineNumberTable.h"
-#include "classfile/attributes/LocalVariableTable.h"
+#include "classfile/attributes/StackMapTable.h"
+#include "classfile/attributes/BootstrapMethods.h"
+#include "classfile/attributes/NestHost.h"
+#include "classfile/attributes/NestMembers.h"
+
+//#include "classfile/attributes/SourceFile.h"
+//#include "classfile/attributes/LineNumberTable.h"
+//#include "classfile/attributes/LocalVariableTable.h"
 #include "classfile/attributes/Unknown.h"
 #include <string.h>
 #include <stdlib.h>
 
-JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
+JRESULT ATTRIBUTE_ReadFromFile(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
 {
 	JRESULT r = 0;
-
-	// linear block of memory that will store attribute data
-	void *attribute_block = NULL;
-	size_t attribute_block_size = 0;
-
-	// offset into the block per attribute
-	size_t attribute_offsets[attributes_count];
 
 	// pointer to access attribute
 	ATTRIBUTE *curr_attribute = NULL;
@@ -44,25 +44,30 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 		//printf("Found Attribute \"%s\" (%lu bytes)\n", attribute_name, curr_length);
 
 		// find which attribute is being read
-		if (strcmp(attribute_name, "Code") == 0)
+		 if (strcmp(attribute_name, "ConstantValue") == 0)
+		{
+			delta = sizeof(ATTRIBUTE_ConstantValue);
+			readAttribute = (ReadAttributeFunction)ReadAttribute_ConstantValue;
+		}
+		else if (strcmp(attribute_name, "Code") == 0)
 		{
 			delta = sizeof(ATTRIBUTE_Code);
 			readAttribute = (ReadAttributeFunction)ReadAttribute_Code;
 		}
-		else if (strcmp(attribute_name, "SourceFile") == 0)
+		else if (strcmp(attribute_name, "BootstrapMethods") == 0)
 		{
-			delta = sizeof(ATTRIBUTE_SourceFile);
-			readAttribute = (ReadAttributeFunction)ReadAttribute_SourceFile;
+			delta = sizeof(ATTRIBUTE_BootstrapMethods);
+			readAttribute = (ReadAttributeFunction)ReadAttribute_BootstrapMethods;
 		}
-		else if (strcmp(attribute_name, "LineNumberTable") == 0)
+		else if (strcmp(attribute_name, "NestHost") == 0)
 		{
-			delta = sizeof(ATTRIBUTE_LineNumberTable);
-			readAttribute = (ReadAttributeFunction)ReadAttribute_LineNumberTable;
+			delta = sizeof(ATTRIBUTE_NestHost);
+			readAttribute = (ReadAttributeFunction)ReadAttribute_NestHost;
 		}
-		else if (strcmp(attribute_name, "LocalVariableTable") == 0)
+		else if (strcmp(attribute_name, "NestMembers") == 0)
 		{
-			delta = sizeof(ATTRIBUTE_LocalVariableTable);
-			readAttribute = (ReadAttributeFunction)ReadAttribute_LocalVariableTable;
+			delta = sizeof(ATTRIBUTE_NestMembers);
+			readAttribute = (ReadAttributeFunction)ReadAttribute_NestMembers;
 		}
 		else
 		{
@@ -70,56 +75,57 @@ JRESULT ReadAttributes(FILE *file, u2 attributes_count, ATTRIBUTE **attributes, 
 			readAttribute = (ReadAttributeFunction)ReadAttribute_Unknown;
 		}
 
-		// note the offset into the block and extend the block
-		attribute_offsets[i] = attribute_block_size;
-		attribute_block = realloc(attribute_block, attribute_block_size += delta);
-		curr_attribute = attribute_block + attribute_offsets[i];
-
-		// populate attribute data
+		// create attribute and populate
+		curr_attribute = calloc(1, delta);
 		curr_attribute->attribute_name_index = curr_attribute_name_index;
 		r = readAttribute(file, curr_attribute, curr_attribute_length, constant_pool);
-	}
-
-	for (int i = 0; i < attributes_count; i++)
-	{
-		attributes[i] = attribute_block + attribute_offsets[i];
+		attributes[i] = (ATTRIBUTE *)curr_attribute;
 	}
 
 	return r;
 }
 
-void FreeAttributes(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
+void ATTRIBUTE_Dealloc(u2 attributes_count, ATTRIBUTE **attributes, CONSTANT **constant_pool)
 {
 	if (attributes_count == 0 || attributes == NULL) return;
 
 	const char *attribute_name;
 	u2 curr_name_index;
 	FreeAttributeFunction freeAttribute;
-	void *block = attributes[0];
 	for (int i = 0; i < attributes_count; i++)
 	{
 		curr_name_index = attributes[i]->attribute_name_index;
 		attribute_name =
 				(const char *)((CONSTANT_Utf8*) constant_pool[curr_name_index - 1])->runes;
 
-		if (strcmp(attribute_name, "Code") == 0)
+		if (strcmp(attribute_name, "ConstantValue") == 0)
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_ConstantValue;
+		}
+		else if (strcmp(attribute_name, "Code") == 0)
 		{
 			freeAttribute = (FreeAttributeFunction)FreeAttribute_Code;
 		}
-		else if (strcmp(attribute_name, "LineNumberTable") == 0)
+		else if (strcmp(attribute_name, "BootstrapMethods") == 0)
 		{
-			freeAttribute = (FreeAttributeFunction)FreeAttribute_LineNumberTable;
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_BootstrapMethods;
 		}
-		else if (strcmp(attribute_name, "LocalVariableTable") == 0)
+		else if (strcmp(attribute_name, "NestHost") == 0)
 		{
-			freeAttribute = (FreeAttributeFunction)FreeAttribute_LocalVariableTable;
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_NestHost;
+		}
+		else if (strcmp(attribute_name, "NestMembers") == 0)
+		{
+			freeAttribute = (FreeAttributeFunction)FreeAttribute_NestMembers;
 		}
 		else
 		{
 			freeAttribute = (FreeAttributeFunction)FreeAttribute_Unknown;
 		}
+
+		// destroy attribute and null entry
 		freeAttribute(attributes[i], constant_pool);
+		free(attributes[i]);
 		attributes[i] = NULL;
 	}
-	free(block);
 }

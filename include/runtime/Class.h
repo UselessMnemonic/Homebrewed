@@ -3,8 +3,10 @@
 
 #include "../WideTypes.h"
 #include "../classfile/ConstantPool.h"
-#include "../classfile/FieldMethods.h"
+#include "../classfile/Member.h"
 #include "../classfile/attributes/BootstrapMethods.h"
+#include "../classfile/attributes/NestHost.h"
+#include "../classfile/attributes/NestMembers.h"
 #include "Object.h"
 
 typedef struct CLASS CLASS;
@@ -38,7 +40,9 @@ struct CLASS {
 
 	// resolved... lazily?
 	OBJECT *instance;
-	ATTRIBUTE_BootstrapMethods *bootstrap_methods;
+	ATTRIBUTE_BootstrapMethods *bootstrap_methods_attr;
+	ATTRIBUTE_NestHost *nest_host_attr;
+	ATTRIBUTE_NestMembers *nest_members_attr;
 };
 
 /*

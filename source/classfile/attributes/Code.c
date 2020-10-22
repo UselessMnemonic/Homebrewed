@@ -43,7 +43,7 @@ JRESULT ReadAttribute_Code(FILE *file, ATTRIBUTE_Code *attribute, u4 attribute_l
 	if (attribute->attributes_count > 0)
 	{
 		attribute->attributes = calloc(attribute->attributes_count, sizeof(ATTRIBUTE*));
-		ReadAttributes(file, attribute->attributes_count, attribute->attributes, constant_pool);
+		ATTRIBUTE_ReadFromFile(file, attribute->attributes_count, attribute->attributes, constant_pool);
 	}
 
 	return r;
@@ -53,6 +53,6 @@ void FreeAttribute_Code(ATTRIBUTE_Code *attribute, CONSTANT **constant_pool)
 {
 	free(attribute->code);
 	free(attribute->exception_table);
-	FreeAttributes(attribute->attributes_count, attribute->attributes, constant_pool);
+	ATTRIBUTE_Dealloc(attribute->attributes_count, attribute->attributes, constant_pool);
 	free(attribute->attributes);
 }
