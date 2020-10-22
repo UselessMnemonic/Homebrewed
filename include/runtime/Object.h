@@ -3,12 +3,14 @@
 
 #include "../WideTypes.h"
 #include "Class.h"
-#include <stdlib.h>
 
-typedef struct {
+typedef struct OBJECT OBJECT;
+typedef struct CLASS CLASS;
+
+struct OBJECT {
 	CLASS *clazz;
 	void **fields;
-} OBJECT;
+};
 
 /*
  * Initializes a new object in a pre-allocated object

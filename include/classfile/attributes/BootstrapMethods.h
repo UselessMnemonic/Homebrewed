@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_BOOTSTRAPMETHODS_H_
 #define CLASSFILE_ATTRIBUTES_BOOTSTRAPMETHODS_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure describing a bootstrap method, used

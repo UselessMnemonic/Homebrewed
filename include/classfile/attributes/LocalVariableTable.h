@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_LOCALVARIABLETABLE_H_
 #define CLASSFILE_ATTRIBUTES_LOCALVARIABLETABLE_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure describing the value of a local variable during

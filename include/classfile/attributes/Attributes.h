@@ -1,8 +1,8 @@
 #ifndef ATTRIBUTES_H_
 #define ATTRIBUTES_H_
 
-#include "WideTypes.h"
-#include "classfile/ConstantPool.h"
+#include "../../WideTypes.h"
+#include "../ConstantPool.h"
 #include <stdio.h>
 
 /*

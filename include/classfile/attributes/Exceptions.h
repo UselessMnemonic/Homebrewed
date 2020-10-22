@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_EXCEPTIONS_H_
 #define CLASSFILE_ATTRIBUTES_EXCEPTIONS_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure for the Exceptions Attribute

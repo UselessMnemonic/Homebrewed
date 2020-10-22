@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_INNERCLASSES_H_
 #define CLASSFILE_ATTRIBUTES_INNERCLASSES_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure describing an inner class, a class that is not a member of a package.

@@ -1,10 +1,10 @@
 #ifndef FIELDMETHODS_H_
 #define FIELDMETHODS_H_
 
-#include "WideTypes.h"
-#include <stdio.h>
-#include "Attributes.h"
+#include "../WideTypes.h"
+#include "attributes/Attributes.h"
 #include "ConstantPool.h"
+#include <stdio.h>
 
 /*
  * A structure representing a field or method as defined in a Class.
@@ -37,7 +37,14 @@ typedef struct
 	ATTRIBUTE **attributes;
 } FIELD;
 
-typedef FIELD METHOD;
+typedef struct
+{
+	u2 access_flags;
+	u2 name_index;
+	u2 descriptor_index;
+	u2 attributes_count;
+	ATTRIBUTE **attributes;
+} METHOD;
 
 /*
  * Parses some number of fields from a file into a pre-allocated

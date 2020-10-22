@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_STACKMAPTABLE_H_
 #define CLASSFILE_ATTRIBUTES_STACKMAPTABLE_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure containing verification information for the elements

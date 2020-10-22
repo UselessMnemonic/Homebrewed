@@ -1,7 +1,6 @@
+#include "classfile/FieldMethods.h"
 #include <string.h>
 #include <stdlib.h>
-
-#include "classfile/FieldMethods.h"
 
 JRESULT ReadFields(FILE *file, u2 fields_count, FIELD *fields, CONSTANT **constant_pool)
 {

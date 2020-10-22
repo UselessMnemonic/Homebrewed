@@ -1,6 +1,6 @@
 #ifndef CLASSFILE_ATTRIBUTES_MODULEMAINCLASS_H_
 #define CLASSFILE_ATTRIBUTES_MODULEMAINCLASS_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 #endif /* CLASSFILE_ATTRIBUTES_MODULEMAINCLASS_H_ */

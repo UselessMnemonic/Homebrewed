@@ -1,19 +1,18 @@
 #ifndef CLASSFILE_H_
 #define CLASSFILE_H_
 
-#include "WideTypes.h"
-#include <stdio.h>
-
+#include "../WideTypes.h"
 #include "ConstantPool.h"
 #include "FieldMethods.h"
-#include "Attributes.h"
+#include "attributes/Attributes.h"
+#include <stdio.h>
 
 /*
  * A structure defining a class file for use with the JVM.
  * All relevant components are exposed here for access.
  * See https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.1
  *
- * TODO Convert Classfile reader into Clazz parser
+ * TODO Convert Classfile reader into Class parser
  */
 typedef struct {
 	u2 minor_version;
@@ -24,7 +23,7 @@ typedef struct {
 	u2 this_class;
 	u2 super_class;
 	u2 interfaces_count;
-	u2 *interfaces;
+	u2 *interface_name_indices;
 	u2 fields_count;
 	FIELD *fields;
 	u2 methods_count;
@@ -46,11 +45,6 @@ typedef struct {
  *   A pre-allocated structure in which to store data.
  */
 JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz);
-
-/*
- * Reads an array of interfaces from a file.
- */
-JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces);
 
 /*
  * This releases all memory allocated by ReadClassfile.

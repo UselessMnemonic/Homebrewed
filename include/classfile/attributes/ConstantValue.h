@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_CONSTANTVALUE_H_
 #define CLASSFILE_ATTRIBUTES_CONSTANTVALUE_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure for the Constant Value attribute.

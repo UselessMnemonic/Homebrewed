@@ -1,6 +1,20 @@
+#include "classfile/Classfile.h"
 #include <string.h>
 #include <stdlib.h>
-#include "classfile/Classfile.h"
+
+/*
+ * Reads an array of interfaces from a file.
+ */
+JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces)
+{
+	JRESULT r = 0;
+	fread(interfaces, 2, interfaces_count, file);
+	for (int i = 0; i < interfaces_count; i++)
+	{
+		interfaces[i] = Big2(interfaces[i]);
+	}
+	return r;
+}
 
 JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 {
@@ -45,11 +59,11 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 	clazz->interfaces_count = Big2(clazz->interfaces_count);
 
 	num_items = clazz->interfaces_count;
-	clazz->interfaces = NULL;
+	clazz->interface_name_indices = NULL;
 	if (num_items > 0)
 	{
-		clazz->interfaces = calloc(num_items, sizeof(u2));
-		r = ReadInterfaces(file, num_items, clazz->interfaces);
+		clazz->interface_name_indices = calloc(num_items, sizeof(u2));
+		r = ReadInterfaces(file, num_items, clazz->interface_name_indices);
 	}
 
 	/* Parse Fields */
@@ -95,8 +109,8 @@ JRESULT ReadClassfile(FILE *file, CLASSFILE *clazz)
 
 void FreeClassfile(CLASSFILE *clazz)
 {
-	free(clazz->interfaces);
-	clazz->interfaces = NULL;
+	free(clazz->interface_name_indices);
+	clazz->interface_name_indices = NULL;
 
 	FreeFields(clazz->fields_count, clazz->fields, clazz->constant_pool);
 	free(clazz->fields);
@@ -113,15 +127,4 @@ void FreeClassfile(CLASSFILE *clazz)
 	FreeConstantPool(clazz->constant_pool_count, clazz->constant_pool);
 	free(clazz->constant_pool);
 	clazz->constant_pool = NULL;
-}
-
-JRESULT ReadInterfaces(FILE *file, u2 interfaces_count, u2 *interfaces)
-{
-	JRESULT r = 0;
-	fread(interfaces, 2, interfaces_count, file);
-	for (int i = 0; i < interfaces_count; i++)
-	{
-		interfaces[i] = Big2(interfaces[i]);
-	}
-	return r;
 }

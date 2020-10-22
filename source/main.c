@@ -128,7 +128,7 @@ int main(int argc, char** argv)
 		printf("Interfaces Count: %u\n", clazz.interfaces_count);
 		for (int i = 0; i < clazz.interfaces_count; i++)
 		{
-			printf("\tInterface @ Constant #%d", clazz.interfaces[i]);
+			printf("\tInterface @ Constant #%d", clazz.interface_name_indices[i]);
 		}
 		printf("Fields Count: %u\n", clazz.fields_count);
 		for (int i = 0; i < clazz.fields_count; i++)

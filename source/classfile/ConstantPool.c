@@ -1,7 +1,6 @@
+#include "classfile/ConstantPool.h"
 #include <string.h>
 #include <stdlib.h>
-
-#include "classfile/ConstantPool.h"
 
 /*
  * This uses a linear allocation algorithm, the efficacy of which

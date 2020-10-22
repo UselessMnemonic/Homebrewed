@@ -1,7 +1,7 @@
 #ifndef CONSTANTPOOL_H_
 #define CONSTANTPOOL_H_
 
-#include "WideTypes.h"
+#include "../WideTypes.h"
 #include <stdio.h>
 
 #define CONSTANT_Class_info			7

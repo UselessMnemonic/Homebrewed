@@ -1,4 +1,5 @@
 #include "runtime/Object.h"
+#include <stdlib.h>
 
 JRESULT OBJECT_new(OBJECT *obj, CLASS *clazz)
 {

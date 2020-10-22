@@ -1,7 +1,7 @@
 #ifndef CLASSFILE_ATTRIBUTES_LINENUMBERTABLE_H_
 #define CLASSFILE_ATTRIBUTES_LINENUMBERTABLE_H_
 
-#include "../Attributes.h"
+#include "Attributes.h"
 
 /*
  * A structure mapping line numbers to bytecode.

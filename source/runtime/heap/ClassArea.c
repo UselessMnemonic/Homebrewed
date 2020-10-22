@@ -10,6 +10,9 @@
 static CLASS CLASSAREA[MAX_NUMBER_OF_CLASSES];
 static uint8_t IS_USED[MAX_NUMBER_OF_CLASSES];
 
+/*
+ * Clearly, these are not thread safe.
+ */
 CLASS* ClassArea_AllocClass()
 {
 	for (int i = 0; i < MAX_NUMBER_OF_CLASSES; i++)
@@ -17,7 +20,7 @@ CLASS* ClassArea_AllocClass()
 		if (!IS_USED[i])
 		{
 			IS_USED[i] = 1;
-			return memset(&CLASSAREA[i], 0, sizeof(CLASS));
+			return &CLASSAREA[i];
 		}
 	}
 	return NULL;
@@ -30,6 +33,7 @@ void ClassArea_FreeClass(CLASS* clazz)
 		if (&CLASSAREA[i] == clazz && IS_USED[i])
 		{
 			IS_USED[i] = 0;
+			memset(&CLASSAREA[i], 0, sizeof(CLASS));
 			return;
 		}
 	}
