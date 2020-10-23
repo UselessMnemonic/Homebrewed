@@ -6,6 +6,10 @@
 #define Big2(x) ((u2)(((x>>8) & 0x00ff) | ((x<<8) & 0xff00)))
 #define Big4(x) ((u4)(((x>>24) & 0x000000ff) | ((x>>8) & 0x0000ff00) | ((x<<8) & 0x00ff0000) | ((x<<24) & 0xff000000)))
 
+#define Append2U1(a,b)((u2)((a << 8)|b))
+#define Append4U1(a,b,c,d)((u4)((a << 24)|(b << 16)|(c << 8)|d))
+#define Append2U2(a,b)((u4)((b << 16)|b))
+
 typedef uint8_t  u1;
 typedef uint16_t u2;
 typedef uint32_t u4;

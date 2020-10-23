@@ -14,18 +14,18 @@ int main(int argc, char** argv)
 	gfxInitDefault();
 	consoleInit(GFX_TOP, NULL);
 
-	// load example class
-	CLASS clazz;
+	// load example classes
 	JRESULT r = 0;
+	CLASS *main_clazz = ClassArea_AllocClass();
 
-	r = Bootstrap_LoadClassFromFile("bin/main/Main.class", &clazz);
+	r = Bootstrap_LoadClassFromFile("bin/main/Main.class", main_clazz);
 	if (r != JRESULT_OK)
 	{
 		fprintf(stderr, "Unexpected error: %d", r);
 	}
 	else
 	{
-		PrintClass(&clazz);
+		PrintClass(main_clazz);
 	}
 
 	// Main loop

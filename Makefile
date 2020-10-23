@@ -34,12 +34,12 @@ include $(DEVKITARM)/3ds_rules
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source \
+				source/classfile \
+				source/classfile/attributes
 				source/runtime \
 				source/runtime/heap \
 				source/util \
 				source/util/print \
-				source/classfile \
-				source/classfile/attributes
 DATA		:=	data
 INCLUDES	:=	include
 GRAPHICS	:=	gfx

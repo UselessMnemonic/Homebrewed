@@ -21,11 +21,11 @@ struct CLASS {
 	u2 methods_count;
 	u2 attributes_count;
 
-	u2 this_class_name_index;
-	u2 super_class_name_index;
+	u2 this_class_ref_index;
+	u2 super_class_ref_index;
 
 	CONSTANT **constant_pool;
-	u2 *interface_name_indices;
+	u2 *interface_ref_indices;
 	FIELD *fields;
 	METHOD *methods;
 	ATTRIBUTE **attributes;

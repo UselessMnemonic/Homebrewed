@@ -41,22 +41,22 @@ JRESULT Bootstrap_LoadClassFromFile(const char* filename, CLASS *clazz)
 	fread(&clazz->access_flags, 2, 1, file);
 	clazz->access_flags = Big2(clazz->access_flags);
 
-	fread(&clazz->this_class_name_index, 2, 1, file);
-	clazz->this_class_name_index = Big2(clazz->this_class_name_index);
+	fread(&clazz->this_class_ref_index, 2, 1, file);
+	clazz->this_class_ref_index = Big2(clazz->this_class_ref_index);
 
-	fread(&clazz->super_class_name_index, 2, 1, file);
-	clazz->super_class_name_index = Big2(clazz->super_class_name_index);
+	fread(&clazz->super_class_ref_index, 2, 1, file);
+	clazz->super_class_ref_index = Big2(clazz->super_class_ref_index);
 
 	/* Parse Interfaces */
 	fread(&clazz->interfaces_count, 2, 1, file);
 	clazz->interfaces_count = Big2(clazz->interfaces_count);
 
 	num_items = clazz->interfaces_count;
-	clazz->interface_name_indices = NULL;
+	clazz->interface_ref_indices = NULL;
 	if (num_items > 0)
 	{
-		clazz->interface_name_indices = calloc(num_items, sizeof(u2));
-		r = FILE_ReadArrayU2(clazz->interface_name_indices, num_items, file);
+		clazz->interface_ref_indices = calloc(num_items, sizeof(u2));
+		r = FILE_ReadArrayU2(clazz->interface_ref_indices, num_items, file);
 	}
 
 	/* Parse Fields */
